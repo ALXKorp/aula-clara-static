@@ -34,7 +34,7 @@ export const catalogAreas: CatalogArea[] = [
     slug: "programacion",
     title: "Programación",
     description:
-      "Aprende desarrollo web, bases de datos, lógica de programación y herramientas técnicas paso a paso.",
+      "Aprende fundamentos, desarrollo web, backend y bases de datos paso a paso, con rutas claras y práctica guiada.",
     order: 1,
     icon: "code"
   }
@@ -42,70 +42,78 @@ export const catalogAreas: CatalogArea[] = [
 
 export const catalogCategories: CatalogCategory[] = [
   {
-    slug: "bases-de-datos",
+    slug: "fundamentos",
     areaSlug: "programacion",
-    title: "Bases de datos",
-    description: "Aprende a guardar, consultar y relacionar información de forma organizada.",
+    title: "Fundamentos",
+    description:
+      "Empieza por las bases: lógica, estructuras básicas y forma de pensar como programador.",
     order: 1
   },
   {
-    slug: "desarrollo-web",
+    slug: "frontend",
     areaSlug: "programacion",
-    title: "Desarrollo web",
-    description: "Aprende a construir páginas y aplicaciones web desde sus fundamentos.",
+    title: "Frontend",
+    description: "Aprende a construir la parte visible e interactiva de una web.",
     order: 2
   },
   {
-    slug: "javascript",
+    slug: "backend",
     areaSlug: "programacion",
-    title: "JavaScript",
-    description: "Aprende a dar comportamiento e interacción a tus páginas web.",
+    title: "Backend",
+    description: "Aprende a crear la lógica interna de una aplicación y comunicarla con datos.",
     order: 3
   },
   {
-    slug: "java",
+    slug: "bases-de-datos",
     areaSlug: "programacion",
-    title: "Java",
-    description: "Aprende programación orientada a objetos y bases de desarrollo backend.",
+    title: "Bases de datos",
+    description:
+      "Aprende a guardar, consultar, relacionar y modificar información de forma organizada.",
     order: 4
   }
 ];
 
 export const catalogTopics: CatalogTopic[] = [
   {
-    slug: "sql",
-    categorySlug: "bases-de-datos",
-    title: "SQL sin miedo",
-    description:
-      "Aprende a consultar, filtrar, ordenar, agrupar, unir y modificar datos paso a paso.",
+    slug: "logica-programacion",
+    categorySlug: "fundamentos",
+    title: "Lógica de programación",
+    description: "Aprende a resolver problemas paso a paso antes de escribir código complejo.",
     level: "Inicial",
-    estimatedTime: "2-4 horas",
-    status: "Disponible",
-    href: "/topics/sql",
-    routeHref: "/learn/sql"
+    estimatedTime: "Próximamente",
+    status: "Próximamente"
+  },
+  {
+    slug: "poo",
+    categorySlug: "fundamentos",
+    title: "Programación orientada a objetos",
+    description: "Entiende clases, objetos, atributos y métodos con ejemplos sencillos.",
+    level: "Inicial",
+    estimatedTime: "Próximamente",
+    status: "Próximamente"
   },
   {
     slug: "html",
-    categorySlug: "desarrollo-web",
+    categorySlug: "frontend",
     title: "HTML desde cero",
-    description: "Estructura páginas web con etiquetas claras y ejemplos tranquilos.",
+    description: "Aprende la estructura básica de una página web.",
     level: "Inicial",
     estimatedTime: "Próximamente",
     status: "Próximamente"
   },
   {
     slug: "css",
-    categorySlug: "desarrollo-web",
+    categorySlug: "frontend",
     title: "CSS sin miedo",
-    description: "Da estilo a tus páginas entendiendo cajas, colores, espaciado y responsive.",
+    description: "Aprende a dar estilo, ordenar elementos y crear diseños claros.",
     level: "Inicial",
     estimatedTime: "Próximamente",
     status: "Próximamente"
   },
   {
-    slug: "javascript-basico",
-    categorySlug: "javascript",
-    title: "JavaScript básico",
+    slug: "javascript-practico",
+    categorySlug: "frontend",
+    title: "JavaScript práctico",
     description: "Aprende a dar comportamiento e interacción a tus páginas web.",
     level: "Inicial",
     estimatedTime: "Próximamente",
@@ -113,9 +121,48 @@ export const catalogTopics: CatalogTopic[] = [
   },
   {
     slug: "java-desde-cero",
-    categorySlug: "java",
+    categorySlug: "backend",
     title: "Java desde cero",
-    description: "Empieza con programación orientada a objetos y bases de desarrollo backend.",
+    description: "Aprende las bases de Java, clases, métodos y estructuras principales.",
+    level: "Inicial",
+    estimatedTime: "Próximamente",
+    status: "Próximamente"
+  },
+  {
+    slug: "apis-rest",
+    categorySlug: "backend",
+    title: "APIs REST básicas",
+    description: "Aprende cómo una aplicación frontend se comunica con un backend.",
+    level: "Intermedio",
+    estimatedTime: "Próximamente",
+    status: "Próximamente"
+  },
+  {
+    slug: "sql",
+    categorySlug: "bases-de-datos",
+    title: "SQL sin miedo",
+    description:
+      "Una ruta tranquila para entender tablas, consultas, filtros y relaciones paso a paso.",
+    level: "Inicial",
+    estimatedTime: "2-4 horas",
+    status: "Disponible",
+    href: "/topics/sql",
+    routeHref: "/learn/sql"
+  },
+  {
+    slug: "postgresql-basico",
+    categorySlug: "bases-de-datos",
+    title: "PostgreSQL básico",
+    description: "Aprende a trabajar con PostgreSQL desde lo básico.",
+    level: "Inicial",
+    estimatedTime: "Próximamente",
+    status: "Próximamente"
+  },
+  {
+    slug: "modelado-relacional",
+    categorySlug: "bases-de-datos",
+    title: "Modelado relacional",
+    description: "Aprende a diseñar tablas, relaciones y estructuras antes de escribir SQL.",
     level: "Inicial",
     estimatedTime: "Próximamente",
     status: "Próximamente"
