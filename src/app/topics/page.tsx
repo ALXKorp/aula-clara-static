@@ -1,15 +1,9 @@
 import { AdSlot } from "@/components/ads/AdSlot";
-import { AreaSection } from "@/components/catalog/AreaSection";
-import { getCatalogAreas, getCategoriesByArea, getTopicsByCategory } from "@/lib/catalog";
+import { AreaCard } from "@/components/catalog/AreaCard";
+import { getCatalogAreas } from "@/lib/catalog";
 
 export default function TopicsPage() {
-  const areas = getCatalogAreas().map((area) => ({
-    area,
-    categories: getCategoriesByArea(area.slug).map((category) => ({
-      category,
-      topics: getTopicsByCategory(category.slug)
-    }))
-  }));
+  const areas = getCatalogAreas();
 
   return (
     <section className="mx-auto max-w-6xl px-5 py-14">
@@ -19,14 +13,14 @@ export default function TopicsPage() {
         </p>
         <h1 className="mt-3 text-3xl font-bold sm:text-4xl">Explora temas</h1>
         <p className="mt-4 leading-8 text-[var(--muted)]">
-          Los contenidos están organizados por áreas, categorías y niveles para que puedas
-          encontrar una ruta que encaje contigo.
+          Elige un área para empezar. Dentro encontrarás categorías, rutas y temas organizados
+          por nivel.
         </p>
       </div>
 
-      <div className="mt-10 grid gap-8">
-        {areas.map((item) => (
-          <AreaSection key={item.area.slug} area={item.area} categories={item.categories} />
+      <div className="mt-10 grid gap-6 md:grid-cols-2">
+        {areas.map((area) => (
+          <AreaCard key={area.slug} area={area} href={`/topics/${area.slug}`} />
         ))}
       </div>
 

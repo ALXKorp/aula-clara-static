@@ -182,14 +182,32 @@ export function getCatalogAreas() {
   return [...catalogAreas].sort((a, b) => a.order - b.order);
 }
 
+export function getAreaBySlug(slug: string) {
+  return catalogAreas.find((area) => area.slug === slug) ?? null;
+}
+
 export function getCategoriesByArea(areaSlug: string) {
   return catalogCategories
     .filter((category) => category.areaSlug === areaSlug)
     .sort((a, b) => a.order - b.order);
 }
 
+export function getCategoryBySlug(slug: string) {
+  return catalogCategories.find((category) => category.slug === slug) ?? null;
+}
+
 export function getTopicsByCategory(categorySlug: string) {
   return catalogTopics.filter((topic) => topic.categorySlug === categorySlug);
+}
+
+export function getTopicCountByCategory(categorySlug: string) {
+  return getTopicsByCategory(categorySlug).length;
+}
+
+export function getCategoryStatus(categorySlug: string): TopicStatus {
+  return getTopicsByCategory(categorySlug).some((topic) => topic.status === "Disponible")
+    ? "Disponible"
+    : "Próximamente";
 }
 
 export function getCatalogTopic(slug: string) {
