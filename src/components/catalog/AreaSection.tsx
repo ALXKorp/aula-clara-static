@@ -20,7 +20,7 @@ export function AreaSection({ area, categories }: AreaSectionProps) {
         <p className="mt-4 leading-8 text-[var(--muted)]">{area.description}</p>
       </div>
 
-      <div className="mt-8 grid gap-6">
+      <div className="mt-8 grid gap-6 lg:grid-cols-2">
         {categories.map((item) => (
           <CategorySection
             key={item.category.slug}

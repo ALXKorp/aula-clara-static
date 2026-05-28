@@ -138,6 +138,15 @@ export const catalogTopics: CatalogTopic[] = [
     status: "Próximamente"
   },
   {
+    slug: "spring-boot-basico",
+    categorySlug: "backend",
+    title: "Spring Boot básico",
+    description: "Aprende a crear aplicaciones backend en Java con una estructura guiada.",
+    level: "Intermedio",
+    estimatedTime: "Próximamente",
+    status: "Próximamente"
+  },
+  {
     slug: "sql",
     categorySlug: "bases-de-datos",
     title: "SQL sin miedo",

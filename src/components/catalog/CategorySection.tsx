@@ -14,7 +14,7 @@ export function CategorySection({ category, topics }: CategorySectionProps) {
         <p className="mt-3 leading-7 text-[var(--muted)]">{category.description}</p>
       </div>
 
-      <div className="mt-6 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+      <div className="mt-6 grid gap-5">
         {topics.map((topic) => (
           <TopicCard key={topic.slug} topic={topic} />
         ))}
