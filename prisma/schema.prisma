@@ -1,0 +1,153 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  USER
+  SUPPORTER
+  ADMIN
+}
+
+enum UserPlan {
+  FREE
+  SUPPORT
+}
+
+enum ResourceType {
+  VIDEO
+  ARTICLE
+  AUDIO
+  DOCUMENTATION
+  PDF
+  EXERCISE
+  REPOSITORY
+  OTHER
+}
+
+enum ResourceStatus {
+  ACTIVE
+  BROKEN
+  PENDING_REVIEW
+  HIDDEN
+}
+
+enum LearningStepStatus {
+  AVAILABLE
+  RECOMMENDED
+  COMING_SOON
+}
+
+enum ProgressStatus {
+  NOT_STARTED
+  IN_PROGRESS
+  COMPLETED
+  NEEDS_REVIEW
+}
+
+model User {
+  id           String         @id @default(cuid())
+  name         String
+  email        String         @unique
+  passwordHash String
+  role         UserRole       @default(USER)
+  plan         UserPlan       @default(FREE)
+  progress     UserProgress[]
+  sessions     Session[]
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+}
+
+model Session {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  token     String   @unique
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Topic {
+  id            String         @id @default(cuid())
+  slug          String         @unique
+  title         String
+  description   String
+  category      String
+  level         String
+  estimatedTime String
+  isPublished   Boolean        @default(false)
+  resources     Resource[]
+  paths         LearningPath[]
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+}
+
+model Resource {
+  id          String         @id @default(cuid())
+  topicId     String
+  topic       Topic          @relation(fields: [topicId], references: [id], onDelete: Cascade)
+  title       String
+  type        ResourceType
+  url         String
+  author      String
+  platform    String
+  language    String
+  level       String
+  duration    String
+  description String
+  whyUseful   String
+  status      ResourceStatus @default(PENDING_REVIEW)
+  reviewedAt  DateTime?
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+}
+
+model LearningPath {
+  id          String         @id @default(cuid())
+  topicId     String
+  topic       Topic          @relation(fields: [topicId], references: [id], onDelete: Cascade)
+  title       String
+  description String
+  level       String
+  steps       LearningStep[]
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+
+  @@unique([topicId, title])
+}
+
+model LearningStep {
+  id          String             @id @default(cuid())
+  pathId      String
+  path        LearningPath       @relation(fields: [pathId], references: [id], onDelete: Cascade)
+  slug        String
+  title       String
+  description String
+  content     String
+  order       Int
+  status      LearningStepStatus @default(COMING_SOON)
+  progress    UserProgress[]
+  createdAt   DateTime           @default(now())
+  updatedAt   DateTime           @updatedAt
+
+  @@unique([pathId, slug])
+  @@unique([pathId, order])
+}
+
+model UserProgress {
+  id        String         @id @default(cuid())
+  userId    String
+  user      User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  stepId    String
+  step      LearningStep   @relation(fields: [stepId], references: [id], onDelete: Cascade)
+  status    ProgressStatus @default(NOT_STARTED)
+  createdAt DateTime       @default(now())
+  updatedAt DateTime       @updatedAt
+
+  @@unique([userId, stepId])
+}
