@@ -7,8 +7,6 @@ import { LessonSection } from "@/components/lessons/LessonSection";
 import { PracticeBox } from "@/components/lessons/PracticeBox";
 import { SoftActionPanel } from "@/components/lessons/SoftActionPanel";
 import { SqlExample } from "@/components/lessons/SqlExample";
-import { getCurrentUser } from "@/lib/auth";
-import { getStepProgress } from "@/lib/progress";
 
 const mistakes = [
   "Olvidar escribir WHERE.",
@@ -17,10 +15,7 @@ const mistakes = [
   "Confundir columna con valor."
 ];
 
-export default async function WhereLessonPage() {
-  const user = await getCurrentUser();
-  const progressStatus = user ? await getStepProgress(user.id, "where") : null;
-
+export default function WhereLessonPage() {
   return (
     <article className="mx-auto max-w-4xl px-5 py-14">
       <p className="text-sm font-semibold uppercase tracking-[0.16em] text-[var(--primary)]">
@@ -34,7 +29,7 @@ export default async function WhereLessonPage() {
         sino solo los que cumplen una condicion concreta.
       </p>
       <div className="mt-6">
-        <DemoAccessNotice isLoggedIn={Boolean(user)} />
+        <DemoAccessNotice />
       </div>
 
       <div className="mt-10 grid gap-6">
@@ -87,7 +82,7 @@ export default async function WhereLessonPage() {
         <CommonMistakes mistakes={mistakes} />
 
         <SoftActionPanel title="Siguientes acciones">
-          <MarkStepButton stepSlug="where" initialStatus={progressStatus} isLoggedIn={Boolean(user)} />
+          <MarkStepButton stepSlug="where" />
           <Button href="/learn/sql/step/order-by" variant="secondary">
             Siguiente paso: ORDER BY
           </Button>

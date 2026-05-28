@@ -7,8 +7,6 @@ import { LessonSection } from "@/components/lessons/LessonSection";
 import { PracticeBox } from "@/components/lessons/PracticeBox";
 import { SoftActionPanel } from "@/components/lessons/SoftActionPanel";
 import { SqlExample } from "@/components/lessons/SqlExample";
-import { getCurrentUser } from "@/lib/auth";
-import { getStepProgress } from "@/lib/progress";
 
 const mistakes = [
   "Olvidar la condicion ON.",
@@ -17,10 +15,7 @@ const mistakes = [
   "Pensar que JOIN copia tablas, cuando realmente combina resultados."
 ];
 
-export default async function JoinLessonPage() {
-  const user = await getCurrentUser();
-  const progressStatus = user ? await getStepProgress(user.id, "join") : null;
-
+export default function JoinLessonPage() {
   return (
     <article className="mx-auto max-w-4xl px-5 py-14">
       <p className="text-sm font-semibold uppercase tracking-[0.16em] text-[var(--primary)]">
@@ -34,7 +29,7 @@ export default async function JoinLessonPage() {
         un poco, porque ya estamos relacionando datos separados. Vamos con calma.
       </p>
       <div className="mt-6">
-        <DemoAccessNotice isLoggedIn={Boolean(user)} />
+        <DemoAccessNotice />
       </div>
 
       <div className="mt-10 grid gap-6">
@@ -94,7 +89,7 @@ export default async function JoinLessonPage() {
         <CommonMistakes mistakes={mistakes} />
 
         <SoftActionPanel title="Siguientes acciones">
-          <MarkStepButton stepSlug="join" initialStatus={progressStatus} isLoggedIn={Boolean(user)} />
+          <MarkStepButton stepSlug="join" />
           <Button href="/learn/sql/step/review" variant="secondary">
             Siguiente paso: Repaso
           </Button>

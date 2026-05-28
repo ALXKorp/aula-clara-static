@@ -20,7 +20,7 @@ const features = [
   },
   {
     title: "Apoya sin bloquear",
-    text: "El Plan Apoyo elimina anuncios, pero el aprendizaje basico sigue siendo gratuito."
+    text: "Las donaciones son opcionales y no desbloquean contenido educativo exclusivo."
   }
 ];
 
@@ -42,7 +42,7 @@ export default function Home() {
           <div className="mt-8 flex flex-wrap gap-3">
             <Button href="/topics">Explorar temas</Button>
             <Button href="/support" variant="secondary">
-              Ver Plan Apoyo
+              Apoyar proyecto
             </Button>
           </div>
         </div>

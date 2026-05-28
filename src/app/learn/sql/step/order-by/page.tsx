@@ -7,8 +7,6 @@ import { LessonSection } from "@/components/lessons/LessonSection";
 import { PracticeBox } from "@/components/lessons/PracticeBox";
 import { SoftActionPanel } from "@/components/lessons/SoftActionPanel";
 import { SqlExample } from "@/components/lessons/SqlExample";
-import { getCurrentUser } from "@/lib/auth";
-import { getStepProgress } from "@/lib/progress";
 
 const mistakes = [
   "Escribir ORDER sin BY.",
@@ -17,10 +15,7 @@ const mistakes = [
   "Pensar que ORDER BY filtra datos, cuando solo los ordena."
 ];
 
-export default async function OrderByLessonPage() {
-  const user = await getCurrentUser();
-  const progressStatus = user ? await getStepProgress(user.id, "order-by") : null;
-
+export default function OrderByLessonPage() {
   return (
     <article className="mx-auto max-w-4xl px-5 py-14">
       <p className="text-sm font-semibold uppercase tracking-[0.16em] text-[var(--primary)]">
@@ -34,7 +29,7 @@ export default async function OrderByLessonPage() {
         mayor o de mayor a menor.
       </p>
       <div className="mt-6">
-        <DemoAccessNotice isLoggedIn={Boolean(user)} />
+        <DemoAccessNotice />
       </div>
 
       <div className="mt-10 grid gap-6">
@@ -81,7 +76,7 @@ export default async function OrderByLessonPage() {
         <CommonMistakes mistakes={mistakes} />
 
         <SoftActionPanel title="Siguientes acciones">
-          <MarkStepButton stepSlug="order-by" initialStatus={progressStatus} isLoggedIn={Boolean(user)} />
+          <MarkStepButton stepSlug="order-by" />
           <Button href="/learn/sql/step/group-by" variant="secondary">
             Siguiente paso: GROUP BY
           </Button>

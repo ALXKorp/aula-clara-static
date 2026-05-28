@@ -15,7 +15,7 @@ export function Footer() {
           <p className="font-semibold text-[var(--foreground)]">Enlaces</p>
           <div className="mt-2 flex flex-col gap-2">
             <Link href="/topics">Temas</Link>
-            <Link href="/support">Plan Apoyo</Link>
+            <Link href="/support">Apoyar el proyecto</Link>
             <Link href="/sustainability">Cómo se mantiene Aula Clara</Link>
             <Link href="/support">Privacidad futura</Link>
             <Link href="/support">Contacto futuro</Link>
@@ -23,7 +23,7 @@ export function Footer() {
         </div>
         <div>
           <p className="font-semibold text-[var(--foreground)]">Principio guia</p>
-          <p className="mt-2">No pagas para aprender. Pagas para apoyar y mejorar la experiencia.</p>
+          <p className="mt-2">Aula Clara es gratuita. Donar ayuda a que siga disponible.</p>
         </div>
       </div>
     </footer>

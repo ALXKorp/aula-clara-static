@@ -22,8 +22,8 @@ const concepts = [
     text: "Ayudar a cubrir costes sin interrumpir el aprendizaje."
   },
   {
-    title: "Plan Apoyo",
-    text: "Permitir apoyo opcional y eliminar anuncios sin bloquear contenido básico."
+    title: "Donaciones opcionales",
+    text: "Permitir apoyo voluntario sin bloquear contenido educativo."
   }
 ];
 

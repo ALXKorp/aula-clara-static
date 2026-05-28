@@ -1,6 +1,3 @@
-import { prisma } from "@/lib/prisma";
-import { getCompletedStepSlugs } from "@/lib/progress";
-
 export type RouteStepStatus = "Completado" | "Disponible" | "Recomendado" | "Proximamente";
 
 export type SqlRouteStep = {
@@ -16,7 +13,7 @@ export type SqlNextStep = {
   href: string;
 };
 
-export const fallbackSqlRouteSteps: SqlRouteStep[] = [
+export const sqlRouteSteps: SqlRouteStep[] = [
   {
     slug: "database-basics",
     title: "Que es una base de datos",
@@ -91,7 +88,7 @@ export const fallbackSqlRouteSteps: SqlRouteStep[] = [
   }
 ];
 
-const stepLinks: Record<string, string> = {
+export const stepLinks: Record<string, string> = {
   select: "/learn/sql/step/select",
   where: "/learn/sql/step/where",
   "order-by": "/learn/sql/step/order-by",
@@ -100,80 +97,18 @@ const stepLinks: Record<string, string> = {
   review: "/learn/sql/step/review"
 };
 
-const continuableSlugs = ["select", "where", "order-by", "group-by", "join", "review"];
+export const continuableSlugs = ["select", "where", "order-by", "group-by", "join", "review"];
 
-function mapStepStatus(status: string): RouteStepStatus {
-  if (status === "RECOMMENDED") return "Recomendado";
-  if (status === "AVAILABLE") return "Disponible";
-  return "Proximamente";
+export function getSqlRouteWithProgress(completedSlugs: string[]) {
+  const completedSet = new Set(completedSlugs);
+
+  return sqlRouteSteps.map((step) => ({
+    ...step,
+    status: completedSet.has(step.slug) ? "Completado" : step.status
+  }));
 }
 
-export async function getSqlRouteForUser(userId?: string | null) {
-  try {
-    const [path, completedSlugs] = await Promise.all([
-      prisma.learningPath.findFirst({
-        where: {
-          topic: { slug: "sql" }
-        },
-        include: {
-          steps: {
-            orderBy: { order: "asc" },
-            select: {
-              slug: true,
-              title: true,
-              description: true,
-              status: true
-            }
-          }
-        }
-      }),
-      userId ? getCompletedStepSlugs(userId) : Promise.resolve([])
-    ]);
-
-    if (!path) {
-      const nextStep = getNextSqlStep(fallbackSqlRouteSteps, []);
-
-      return {
-        steps: fallbackSqlRouteSteps,
-        completedCount: 0,
-        nextStep,
-        allContinuableCompleted: false
-      };
-    }
-
-    const completedSet = new Set(completedSlugs);
-    const steps = path.steps.map((step) => ({
-      slug: step.slug,
-      title: step.title,
-      description: step.description,
-      status: completedSet.has(step.slug) ? "Completado" : mapStepStatus(step.status),
-      href: stepLinks[step.slug]
-    })) satisfies SqlRouteStep[];
-    const nextStep = getNextSqlStep(steps, completedSlugs);
-
-    return {
-      steps,
-      completedCount: completedSlugs.length,
-      nextStep,
-      allContinuableCompleted: !nextStep
-    };
-  } catch (error) {
-    if (process.env.NODE_ENV !== "production") {
-      console.warn("Aula Clara: usando fallback de ruta SQL por error al leer Prisma.", error);
-    }
-
-    const nextStep = getNextSqlStep(fallbackSqlRouteSteps, []);
-
-    return {
-      steps: fallbackSqlRouteSteps,
-      completedCount: 0,
-      nextStep,
-      allContinuableCompleted: false
-    };
-  }
-}
-
-function getNextSqlStep(steps: SqlRouteStep[], completedSlugs: string[]): SqlNextStep | null {
+export function getNextSqlStep(completedSlugs: string[]): SqlNextStep | null {
   const completedSet = new Set(completedSlugs);
 
   for (const slug of continuableSlugs) {
@@ -181,14 +116,11 @@ function getNextSqlStep(steps: SqlRouteStep[], completedSlugs: string[]): SqlNex
       continue;
     }
 
-    const step = steps.find((item) => item.slug === slug);
+    const step = sqlRouteSteps.find((item) => item.slug === slug);
     const href = stepLinks[slug];
 
     if (step && href) {
-      return {
-        title: step.title,
-        href
-      };
+      return { title: step.title, href };
     }
   }
 

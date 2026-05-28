@@ -7,8 +7,6 @@ import { LessonSection } from "@/components/lessons/LessonSection";
 import { PracticeBox } from "@/components/lessons/PracticeBox";
 import { SoftActionPanel } from "@/components/lessons/SoftActionPanel";
 import { SqlExample } from "@/components/lessons/SqlExample";
-import { getCurrentUser } from "@/lib/auth";
-import { getStepProgress } from "@/lib/progress";
 
 const mistakes = [
   "Olvidar la coma entre columnas.",
@@ -17,10 +15,7 @@ const mistakes = [
   "Usar SELECT * siempre por costumbre."
 ];
 
-export default async function SelectLessonPage() {
-  const user = await getCurrentUser();
-  const progressStatus = user ? await getStepProgress(user.id, "select") : null;
-
+export default function SelectLessonPage() {
   return (
     <article className="mx-auto max-w-4xl px-5 py-14">
       <p className="text-sm font-semibold uppercase tracking-[0.16em] text-[var(--primary)]">
@@ -34,7 +29,7 @@ export default async function SelectLessonPage() {
         datos a una tabla, eligiendo que columnas quieres ver.
       </p>
       <div className="mt-6">
-        <DemoAccessNotice isLoggedIn={Boolean(user)} />
+        <DemoAccessNotice />
       </div>
 
       <div className="mt-10 grid gap-6">
@@ -92,7 +87,7 @@ export default async function SelectLessonPage() {
         <CommonMistakes mistakes={mistakes} />
 
         <SoftActionPanel title="Siguientes acciones">
-          <MarkStepButton stepSlug="select" initialStatus={progressStatus} isLoggedIn={Boolean(user)} />
+          <MarkStepButton stepSlug="select" />
           <Button href="/learn/sql/step/where" variant="secondary">
             Siguiente paso: WHERE
           </Button>

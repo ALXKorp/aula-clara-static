@@ -2,10 +2,10 @@ import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
 
 const included = [
-  "Aula Clara seguirá teniendo acceso gratuito.",
-  "El Plan Apoyo elimina anuncios.",
-  "Ayuda a mantener la plataforma.",
-  "No bloquea el aprendizaje básico."
+  "Aula Clara seguirá siendo gratuita.",
+  "Donar ayuda a mantener la plataforma disponible.",
+  "No desbloquea contenido educativo exclusivo.",
+  "El aprendizaje básico no depende de pagar."
 ];
 
 export default function SupportPage() {
@@ -13,28 +13,30 @@ export default function SupportPage() {
     <section className="mx-auto grid max-w-6xl gap-8 px-5 py-14 md:grid-cols-[1fr_0.8fr]">
       <div>
         <p className="text-sm font-semibold uppercase tracking-[0.16em] text-[var(--primary)]">
-          Plan Apoyo
+          Apoyar el proyecto
         </p>
         <h1 className="mt-3 text-3xl font-bold sm:text-4xl">
-          No pagas para aprender. Pagas para apoyar.
+          Aula Clara es gratuita. Puedes apoyar si te resulta útil.
         </h1>
         <p className="mt-5 leading-8 text-[var(--muted)]">
-          Aula Clara nace como una plataforma gratuita. El Plan Apoyo existirá para eliminar
-          anuncios y ayudar a cubrir costes, sin convertir el contenido esencial en un muro de
-          pago.
+          Aula Clara es gratuita. Si el proyecto te resulta útil, puedes apoyar su
+          mantenimiento con una donación voluntaria. No desbloquea contenido exclusivo: solo
+          ayuda a que siga disponible.
         </p>
         <div className="mt-8 flex flex-wrap gap-3">
           <Button href="/topics">Seguir aprendiendo gratis</Button>
           <Button href="/sustainability" variant="secondary">
-            Ver sostenibilidad
+            Cómo se mantiene
           </Button>
         </div>
       </div>
 
       <Card>
-        <p className="text-sm font-semibold text-[var(--primary)]">Preparado para el futuro</p>
-        <h2 className="mt-2 text-2xl font-bold">Plan Apoyo</h2>
-        <p className="mt-2 text-[var(--muted)]">Pagos reales no implementados todavia.</p>
+        <p className="text-sm font-semibold text-[var(--primary)]">Donación voluntaria</p>
+        <h2 className="mt-2 text-2xl font-bold">Apoyar sin bloquear</h2>
+        <p className="mt-2 text-[var(--muted)]">
+          Esta versión no integra donaciones online todavía.
+        </p>
         <ul className="mt-6 space-y-3">
           {included.map((item) => (
             <li key={item} className="flex gap-3 text-[var(--muted)]">

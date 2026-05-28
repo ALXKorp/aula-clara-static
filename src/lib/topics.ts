@@ -1,5 +1,3 @@
-import { prisma } from "@/lib/prisma";
-
 export type TopicSummary = {
   slug: string;
   title: string;
@@ -22,7 +20,7 @@ export type TopicDetail = {
   estimatedTime: string;
 };
 
-export const fallbackTopics: TopicSummary[] = [
+export const staticTopics: TopicSummary[] = [
   {
     slug: "sql",
     title: "SQL sin miedo",
@@ -31,7 +29,7 @@ export const fallbackTopics: TopicSummary[] = [
     description:
       "Una ruta tranquila para entender tablas, consultas, filtros y relaciones paso a paso.",
     estimatedTime: "2-4 horas",
-    status: "Tema inicial del MVP",
+    status: "Tema inicial",
     href: "/topics/sql",
     action: "Abrir tema"
   },
@@ -59,7 +57,7 @@ export const fallbackTopics: TopicSummary[] = [
   }
 ];
 
-export const fallbackSqlTopic: TopicDetail = {
+export const staticSqlTopic: TopicDetail = {
   slug: "sql",
   title: "SQL sin miedo",
   subtitle:
@@ -71,80 +69,10 @@ export const fallbackSqlTopic: TopicDetail = {
   estimatedTime: "2-4 horas"
 };
 
-function canUseDatabase() {
-  return Boolean(process.env.DATABASE_URL);
+export async function getPublishedTopics() {
+  return staticTopics;
 }
 
-function logDatabaseFallback(error: unknown) {
-  if (process.env.NODE_ENV !== "production") {
-    console.warn("Aula Clara: usando fallback estatico porque Prisma no pudo leer la base de datos.", error);
-  }
-}
-
-export async function getPublishedTopics(): Promise<TopicSummary[]> {
-  if (!canUseDatabase()) {
-    return fallbackTopics;
-  }
-
-  try {
-    const topics = await prisma.topic.findMany({
-      where: { isPublished: true },
-      orderBy: { createdAt: "asc" },
-      select: {
-        slug: true,
-        title: true,
-        category: true,
-        level: true,
-        description: true,
-        estimatedTime: true
-      }
-    });
-
-    if (topics.length === 0) {
-      return fallbackTopics;
-    }
-
-    return topics.map((topic) => ({
-      ...topic,
-      status: topic.slug === "sql" ? "Tema inicial del MVP" : "Publicado",
-      href: `/topics/${topic.slug}`,
-      action: "Abrir tema"
-    }));
-  } catch (error) {
-    logDatabaseFallback(error);
-    return fallbackTopics;
-  }
-}
-
-export async function getSqlTopic(): Promise<TopicDetail> {
-  if (!canUseDatabase()) {
-    return fallbackSqlTopic;
-  }
-
-  try {
-    const topic = await prisma.topic.findUnique({
-      where: { slug: "sql" },
-      select: {
-        slug: true,
-        title: true,
-        description: true,
-        category: true,
-        level: true,
-        estimatedTime: true
-      }
-    });
-
-    if (!topic) {
-      return fallbackSqlTopic;
-    }
-
-    return {
-      ...topic,
-      subtitle:
-        "Una ruta inicial para entender bases de datos poco a poco, con explicaciones claras y practica sin presion."
-    };
-  } catch (error) {
-    logDatabaseFallback(error);
-    return fallbackSqlTopic;
-  }
+export async function getSqlTopic() {
+  return staticSqlTopic;
 }
