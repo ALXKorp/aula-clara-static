@@ -6,6 +6,8 @@ type TopicHeroProps = {
   level: string;
   estimatedTime: string;
   category: string;
+  status?: string;
+  breadcrumb?: string;
   startHref?: string;
 };
 
@@ -15,17 +17,23 @@ export function TopicHero({
   level,
   estimatedTime,
   category,
+  status,
+  breadcrumb,
   startHref = "#learning-path"
 }: TopicHeroProps) {
   const details = [
     { label: "Nivel", value: level },
     { label: "Tiempo estimado", value: estimatedTime },
-    { label: "Categoria", value: category }
+    { label: "Categoría", value: category },
+    ...(status ? [{ label: "Estado", value: status }] : [])
   ];
 
   return (
     <section className="mx-auto grid max-w-6xl gap-8 px-5 py-14 md:grid-cols-[1.15fr_0.85fr] md:items-center">
       <div>
+        {breadcrumb ? (
+          <p className="text-sm font-semibold text-[var(--primary-dark)]">{breadcrumb}</p>
+        ) : null}
         <p className="text-sm font-semibold uppercase tracking-[0.16em] text-[var(--primary)]">
           Tema inicial
         </p>
@@ -43,7 +51,7 @@ export function TopicHero({
       </div>
 
       <div className="rounded-lg border border-[var(--line)] bg-[var(--panel)] p-6 shadow-sm">
-        <p className="text-sm font-semibold text-[var(--primary-dark)]">Informacion del tema</p>
+        <p className="text-sm font-semibold text-[var(--primary-dark)]">Información del tema</p>
         <div className="mt-5 grid gap-3">
           {details.map((detail) => (
             <div

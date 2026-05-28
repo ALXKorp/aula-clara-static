@@ -4,6 +4,7 @@ import { LearningPathPreview } from "@/components/learning/LearningPathPreview";
 import { TopicHero } from "@/components/topics/TopicHero";
 import { ResourcePreviewCard } from "@/components/resources/ResourcePreviewCard";
 import { Card } from "@/components/ui/Card";
+import { getCatalogContextForTopic } from "@/lib/catalog";
 import { getSqlTopic } from "@/lib/topics";
 
 const steps = [
@@ -112,6 +113,12 @@ const resources = [
 
 export default async function SqlTopicPage() {
   const topic = await getSqlTopic();
+  const catalogContext = getCatalogContextForTopic("sql");
+  const breadcrumb =
+    catalogContext.area && catalogContext.category
+      ? `${catalogContext.area.title} / ${catalogContext.category.title}`
+      : undefined;
+  const catalogTopic = catalogContext.topic;
 
   return (
     <>
@@ -120,7 +127,9 @@ export default async function SqlTopicPage() {
         subtitle={topic.subtitle}
         level={topic.level}
         estimatedTime={topic.estimatedTime}
-        category={topic.category}
+        category={catalogContext.category?.title ?? topic.category}
+        status={catalogTopic?.status ?? "Disponible"}
+        breadcrumb={breadcrumb}
         startHref="/learn/sql"
       />
 
