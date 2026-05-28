@@ -15,7 +15,10 @@ const quickMap = [
   { term: "WHERE", meaning: "filtrar filas." },
   { term: "ORDER BY", meaning: "ordenar resultados." },
   { term: "GROUP BY", meaning: "agrupar datos." },
-  { term: "JOIN", meaning: "unir tablas relacionadas." }
+  { term: "JOIN", meaning: "unir tablas relacionadas." },
+  { term: "INSERT", meaning: "añadir registros." },
+  { term: "UPDATE", meaning: "modificar registros." },
+  { term: "DELETE", meaning: "eliminar registros con cuidado." }
 ];
 
 const mistakes = [
@@ -86,11 +89,14 @@ export default function ReviewLessonPage() {
 
         <SoftActionPanel title="Siguientes acciones">
           <MarkStepButton stepSlug="review" />
+          <Button href="/learn/sql/step/exam" variant="secondary">
+            Siguiente paso: Simulacro
+          </Button>
           <Button href="/learn/sql">Volver a la ruta</Button>
           <Button href="/learn/sql/step/select" variant="secondary">
             Repasar SELECT
           </Button>
-          <Button type="button" variant="ghost">
+          <Button href="/learn/sql/step/exam" variant="ghost">
             Tengo examen pronto
           </Button>
           <Button type="button" variant="ghost">

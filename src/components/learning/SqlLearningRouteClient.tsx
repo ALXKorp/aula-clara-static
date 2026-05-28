@@ -49,10 +49,10 @@ export function SqlLearningRouteClient() {
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
             <Button href={continueHref}>{continueLabel}</Button>
-            <Button href="/learn/sql" variant="secondary">
+            <Button href="/learn/sql/step/database-basics" variant="secondary">
               Repasar desde el principio
             </Button>
-            <Button href="/learn/sql/step/review" variant="ghost">
+            <Button href="/learn/sql/step/exam" variant="ghost">
               Tengo examen pronto
             </Button>
           </div>

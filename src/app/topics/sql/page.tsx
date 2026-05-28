@@ -8,23 +8,23 @@ import { getSqlTopic } from "@/lib/topics";
 
 const steps = [
   {
-    title: "Que es una base de datos",
-    description: "Entiende para que sirve guardar informacion de forma ordenada.",
-    status: "Disponible" as const
-  },
-  {
-    title: "Que es una tabla",
-    description: "Mira como se organizan los datos en filas, columnas y valores.",
+    title: "Qué es una base de datos",
+    description: "Entiende para qué sirve guardar información de forma ordenada.",
     status: "Recomendado" as const
   },
   {
-    title: "Que es una consulta",
-    description: "Aprende a pedirle informacion concreta a una base de datos.",
+    title: "Qué es una tabla",
+    description: "Mira cómo se organizan los datos en filas, columnas y valores.",
+    status: "Disponible" as const
+  },
+  {
+    title: "Qué es una consulta",
+    description: "Aprende a pedirle información concreta a una base de datos.",
     status: "Disponible" as const
   },
   {
     title: "SELECT",
-    description: "Elige que columnas quieres ver y empieza a leer datos con calma.",
+    description: "Elige qué columnas quieres ver y empieza a leer datos con calma.",
     status: "Disponible" as const
   },
   {
@@ -34,33 +34,33 @@ const steps = [
   },
   {
     title: "ORDER BY",
-    description: "Ordena informacion para leerla mejor y comparar resultados.",
+    description: "Ordena información para leerla mejor y comparar resultados.",
     status: "Disponible" as const
   },
   {
     title: "GROUP BY",
-    description: "Agrupa datos para resumirlos y responder preguntas mas amplias.",
-    status: "Proximamente" as const
+    description: "Agrupa datos para resumirlos y responder preguntas más amplias.",
+    status: "Disponible" as const
   },
   {
     title: "JOIN",
-    description: "Relaciona tablas sin perderte en nombres tecnicos.",
-    status: "Proximamente" as const
+    description: "Relaciona tablas sin perderte en nombres técnicos.",
+    status: "Disponible" as const
   },
   {
     title: "INSERT, UPDATE y DELETE",
     description: "Prepara el camino para crear, cambiar y borrar datos con cuidado.",
-    status: "Proximamente" as const
+    status: "Disponible" as const
   },
   {
     title: "Ejercicios de repaso",
-    description: "Practica con ejercicios pequenos para afianzar lo aprendido.",
-    status: "Proximamente" as const
+    description: "Practica con ejercicios pequeños para afianzar lo aprendido.",
+    status: "Disponible" as const
   },
   {
     title: "Simulacro de examen",
-    description: "Repasa lo esencial con una practica guiada y sin presion.",
-    status: "Proximamente" as const
+    description: "Repasa lo esencial con una práctica guiada y sin presión.",
+    status: "Disponible" as const
   }
 ];
 

@@ -16,27 +16,30 @@ export type SqlNextStep = {
 export const sqlRouteSteps: SqlRouteStep[] = [
   {
     slug: "database-basics",
-    title: "Que es una base de datos",
-    description: "Una forma ordenada de guardar informacion para poder encontrarla despues.",
-    status: "Proximamente"
+    title: "Qué es una base de datos",
+    description: "Una forma ordenada de guardar información para poder encontrarla después.",
+    status: "Recomendado",
+    href: "/learn/sql/step/database-basics"
   },
   {
     slug: "tables",
-    title: "Que es una tabla",
+    title: "Qué es una tabla",
     description: "La estructura donde los datos se organizan en filas y columnas.",
-    status: "Proximamente"
+    status: "Disponible",
+    href: "/learn/sql/step/tables"
   },
   {
     slug: "queries",
-    title: "Que es una consulta",
+    title: "Qué es una consulta",
     description: "Una pregunta escrita para pedir datos concretos a la base de datos.",
-    status: "Proximamente"
+    status: "Disponible",
+    href: "/learn/sql/step/queries"
   },
   {
     slug: "select",
     title: "SELECT",
-    description: "El paso recomendado para aprender a pedir columnas concretas de una tabla.",
-    status: "Recomendado",
+    description: "Aprende a pedir columnas concretas de una tabla.",
+    status: "Disponible",
     href: "/learn/sql/step/select"
   },
   {
@@ -71,7 +74,8 @@ export const sqlRouteSteps: SqlRouteStep[] = [
     slug: "insert-update-delete",
     title: "INSERT, UPDATE y DELETE",
     description: "Crea, modifica y elimina datos con cuidado.",
-    status: "Proximamente"
+    status: "Disponible",
+    href: "/learn/sql/step/insert-update-delete"
   },
   {
     slug: "review",
@@ -84,28 +88,57 @@ export const sqlRouteSteps: SqlRouteStep[] = [
     slug: "exam",
     title: "Simulacro de examen",
     description: "Repasa conceptos esenciales con una practica guiada.",
-    status: "Proximamente"
+    status: "Disponible",
+    href: "/learn/sql/step/exam"
   }
 ];
 
 export const stepLinks: Record<string, string> = {
+  "database-basics": "/learn/sql/step/database-basics",
+  tables: "/learn/sql/step/tables",
+  queries: "/learn/sql/step/queries",
   select: "/learn/sql/step/select",
   where: "/learn/sql/step/where",
   "order-by": "/learn/sql/step/order-by",
   "group-by": "/learn/sql/step/group-by",
   join: "/learn/sql/step/join",
-  review: "/learn/sql/step/review"
+  "insert-update-delete": "/learn/sql/step/insert-update-delete",
+  review: "/learn/sql/step/review",
+  exam: "/learn/sql/step/exam"
 };
 
-export const continuableSlugs = ["select", "where", "order-by", "group-by", "join", "review"];
+export const continuableSlugs = [
+  "database-basics",
+  "tables",
+  "queries",
+  "select",
+  "where",
+  "order-by",
+  "group-by",
+  "join",
+  "insert-update-delete",
+  "review",
+  "exam"
+];
 
 export function getSqlRouteWithProgress(completedSlugs: string[]) {
   const completedSet = new Set(completedSlugs);
+  const nextStep = getNextSqlStep(completedSlugs);
 
-  return sqlRouteSteps.map((step) => ({
-    ...step,
-    status: completedSet.has(step.slug) ? "Completado" : step.status
-  }));
+  return sqlRouteSteps.map((step) => {
+    const status: RouteStepStatus = completedSet.has(step.slug)
+      ? "Completado"
+      : nextStep?.href === step.href
+        ? "Recomendado"
+        : step.status === "Recomendado"
+          ? "Disponible"
+          : step.status;
+
+    return {
+      ...step,
+      status
+    };
+  });
 }
 
 export function getNextSqlStep(completedSlugs: string[]): SqlNextStep | null {

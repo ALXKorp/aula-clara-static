@@ -90,8 +90,8 @@ export default function JoinLessonPage() {
 
         <SoftActionPanel title="Siguientes acciones">
           <MarkStepButton stepSlug="join" />
-          <Button href="/learn/sql/step/review" variant="secondary">
-            Siguiente paso: Repaso
+          <Button href="/learn/sql/step/insert-update-delete" variant="secondary">
+            Siguiente paso: INSERT, UPDATE y DELETE
           </Button>
           <Button href="/learn/sql" variant="ghost">
             Volver a la ruta
