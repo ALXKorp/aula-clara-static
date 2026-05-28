@@ -23,8 +23,7 @@ Aula Clara es una plataforma educativa web gratuita, calmada y sostenible. Esta 
 - API routes necesarias para funcionar.
 - Cookies HTTP-only.
 - Login, registro o sesiones reales.
-- Pagos, Stripe, suscripciones o contenido premium.
-- IA real.
+
 
 ## Diferencia con `fullstack`
 
@@ -92,6 +91,3 @@ npm run lint
 npm run build
 ```
 
-## Donaciones
-
-Aula Clara es gratuita. Si el proyecto te resulta util, puedes apoyar su mantenimiento con una donacion voluntaria. No desbloquea contenido exclusivo: solo ayuda a que siga disponible.
